@@ -24,8 +24,6 @@ export default function ModalCard({ closeModal, onData }) {
 	function sendFormData() {
 		if (inputValues === undefined) {
 		} else {
-			console.log(inputValues);
-
 			inputValues.color = cardColor;
 			inputValues.accentColor = cardColor + '24';
 			const isObjectEmpty = (inputValues) => {
@@ -45,9 +43,13 @@ export default function ModalCard({ closeModal, onData }) {
 			}
 		}
 	}
+	const errorHandler = () => {
+		return true;
+	};
 	const handleInputChange = (inputName, e) => {
 		formChecks[inputName][0] = e.target.value.length;
-		if (formChecks[inputName][0] >= formChecks[inputName][1]) {
+		if (formChecks[inputName][0] > formChecks[inputName][1]) {
+			errorHandler(e, 'charLong');
 			e.target.value = e.target.value.slice(0, formChecks[inputName][1]);
 			e.target.style.borderColor = 'red';
 		} else {
