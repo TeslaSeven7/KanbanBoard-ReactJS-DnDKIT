@@ -40,3 +40,72 @@
 .read-the-docs {
   color: #888;
 }
+
+input[type="radio"].flairs {
+  display: none;
+}
+input[type="radio"].flairs + label {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border-radius: 100px;
+}
+
+input[type="radio"].flairs#red + label {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+input[type="radio"].flairs#red:checked + label {
+  border: 1px solid #ef4444;
+  background: #ef444424;
+}
+
+input[type="radio"].flairs#orange + label {
+  border-color: #f97316;
+  color: #f97316;
+}
+input[type="radio"].flairs#orange:checked + label {
+  border: 1px solid #f97316;
+  background: #f9731624;
+}
+
+input[type="radio"].flairs#green + label {
+  border-color: #84cc16;
+  color: #84cc16;
+}
+input[type="radio"].flairs#green:checked + label {
+  border: 1px solid #84cc16;
+  background: #84cc1624;
+}
+
+input[type="radio"].flairs#blue + label {
+  border-color: #0ea5e9;
+  color: #0ea5e9;
+}
+input[type="radio"].flairs#blue:checked + label {
+  border: 1px solid #0ea5e9;
+  background: #0ea5e924;
+}
+
+input[type="radio"].flairs#purple + label {
+  border-color: #a855f7;
+  color: #a855f7;
+}
+input[type="radio"].flairs#purple:checked + label {
+  border: 1px solid #a855f7;
+  background: #a855f724;
+}
+
+
+
+input[type="radio"].flairs#pink + label {
+  border-color: #ec4899;
+  color: #ec4899;
+}
+input[type="radio"].flairs#pink:checked + label {
+  border: 1px solid #ec4899;
+  background: #ec489924;
+}

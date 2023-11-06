@@ -1,28 +1,33 @@
 import { useState, useRef, useEffect } from 'react';
 import CrossIcon from '../icons/CrossIcon';
 import PlusIcon from '../icons/PlusIcon';
+import generateId from '../utils/generateID';
 export default function ModalCard({ closeModal, onData }) {
 	const [cardForm, setCardForm] = useState();
 	const cardTitle = useRef();
 	const cardFlair = useRef();
 	const [cardColor, setCardColor] = useState('#ef4444');
 	const cardContent = useRef();
-
+	const [formChecks, setFormChecks] = useState({
+		title: [0, 25],
+		flair: [0, 20],
+		content: [0, 400],
+	});
 	const [inputValues, setInputValues] = useState({
 		id: generateId(),
 		title: '',
 		flair: '',
 		color: '',
+		accentColor: '',
 		content: '',
 	});
 	function sendFormData() {
 		if (inputValues === undefined) {
 		} else {
-			console.log(cardColor);
+			console.log(inputValues);
 
 			inputValues.color = cardColor;
 			inputValues.accentColor = cardColor + '24';
-			console.log(inputValues);
 			const isObjectEmpty = (inputValues) => {
 				for (const key in inputValues) {
 					if (inputValues[key] === '') {
@@ -33,9 +38,7 @@ export default function ModalCard({ closeModal, onData }) {
 			};
 
 			if (isObjectEmpty(inputValues)) {
-				console.log(
-					'At least one property in inputValues is empty. Performing the action...'
-				);
+				console.log('DO SOMETHING');
 			} else {
 				onData(inputValues);
 				closeModal();
@@ -43,21 +46,19 @@ export default function ModalCard({ closeModal, onData }) {
 		}
 	}
 	const handleInputChange = (inputName, e) => {
-		const formChecks = { title: [0, 25], flair: [0, 20], content: [0, 400] };
 		formChecks[inputName][0] = e.target.value.length;
-
-		if (formChecks[inputName][0] > formChecks[inputName][1]) {
+		if (formChecks[inputName][0] >= formChecks[inputName][1]) {
 			e.target.value = e.target.value.slice(0, formChecks[inputName][1]);
+			e.target.style.borderColor = 'red';
+		} else {
+			e.target.style.borderColor = '#3b85f1';
 		}
 		setInputValues({
 			...inputValues,
 			[inputName]: e.target.value,
 		});
 	};
-
-	function generateId() {
-		return Math.floor(Math.random() * 10001);
-	}
+	useEffect(() => {}, [formChecks]);
 	return (
 		<div
 			onClick={closeModal}
@@ -74,11 +75,16 @@ export default function ModalCard({ closeModal, onData }) {
 					<h2 className='text-2xl font-semibold'>Create a new Task</h2>
 				</div>
 				<div className='flex flex-col mb-5'>
-					<label
-						htmlFor=''
-						className='text-gray-500'>
-						Title
-					</label>
+					<div className='flex items-center justify-between'>
+						<label
+							htmlFor=''
+							className='text-gray-500'>
+							Title
+						</label>
+						<span className='text-gray-500 text-sm'>
+							{formChecks.title[0] + '/' + formChecks.title[1]}
+						</span>
+					</div>
 					<input
 						name='title'
 						value={inputValues.title}
@@ -88,12 +94,17 @@ export default function ModalCard({ closeModal, onData }) {
 						className='focus:outline-none px-3 py-2 text-md border border-zinc-300 focus:border-blue-500 font-semibold transition rounded-md'
 					/>
 				</div>
-				<div className='flex flex-col mb-5'>
-					<label
-						htmlFor=''
-						className='text-gray-500'>
-						Flair
-					</label>
+				<div className='flex flex-col mb-2'>
+					<div className='flex items-center justify-between'>
+						<label
+							htmlFor=''
+							className='text-gray-500'>
+							Flair
+						</label>
+						<span className='text-gray-500 text-sm'>
+							{formChecks.flair[0] + '/' + formChecks.flair[1]}
+						</span>
+					</div>
 					<input
 						name='flair'
 						value={inputValues.flair}
@@ -103,35 +114,98 @@ export default function ModalCard({ closeModal, onData }) {
 						className='focus:outline-none px-3 py-2 text-md border border-zinc-300 focus:border-blue-500 font-semibold transition rounded-md'
 					/>
 				</div>
-				<div className='flex flex-row mb-5'>
+				<div className='flex flex-row justify-between mb-5'>
 					<input
-						checked
+						className='flairs'
 						type='radio'
 						name='color'
+						id='red'
+						checked={cardColor === '#ef4444'}
 						onChange={() => setCardColor('#ef4444')}
 					/>
+					<label
+						className='cursor-pointer'
+						htmlFor='red'>
+						Red
+					</label>
 					<input
+						className='flairs'
 						type='radio'
 						name='color'
+						id='orange'
+						checked={cardColor === '#f97316'}
 						onChange={() => setCardColor('#f97316')}
 					/>
+					<label
+						className='cursor-pointer'
+						htmlFor='orange'>
+						Orange
+					</label>
 					<input
+						className='flairs'
 						type='radio'
 						name='color'
+						id='green'
+						checked={cardColor === '#84cc16'}
 						onChange={() => setCardColor('#84cc16')}
 					/>
+					<label
+						className='flairs cursor-pointer'
+						htmlFor='green'>
+						Green
+					</label>
 					<input
+						className='flairs'
 						type='radio'
 						name='color'
+						id='blue'
+						checked={cardColor === '#0ea5e9'}
 						onChange={() => setCardColor('#0ea5e9')}
 					/>
+					<label
+						className='flairs cursor-pointer'
+						htmlFor='blue'>
+						Blue
+					</label>
+					<input
+						className='flairs'
+						type='radio'
+						name='color'
+						id='purple'
+						checked={cardColor === '#a855f7'}
+						onChange={() => setCardColor('#a855f7')}
+					/>
+					<label
+						className='flairs cursor-pointer'
+						htmlFor='purple'>
+						Purple
+					</label>
+
+					<input
+						className='flairs'
+						type='radio'
+						name='color'
+						id='pink'
+						checked={cardColor === '#ec4899'}
+						onChange={() => setCardColor('#ec4899')}
+					/>
+					<label
+						className='flairs cursor-pointer'
+						htmlFor='pink'>
+						Pink
+					</label>
 				</div>
 				<div className='flex flex-col mb-5'>
-					<label
-						htmlFor=''
-						className='text-gray-500'>
-						Content
-					</label>
+					<div className='flex items-center justify-between'>
+						<label
+							htmlFor=''
+							className='text-gray-500'>
+							Content
+						</label>
+						<span className='text-gray-500 text-sm'>
+							{formChecks.content[0] + '/' + formChecks.content[1]}
+						</span>
+					</div>
 					<textarea
 						name='content'
 						value={inputValues.content}

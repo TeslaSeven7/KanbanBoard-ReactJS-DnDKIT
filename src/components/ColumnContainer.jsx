@@ -4,6 +4,7 @@ import PlusIcon from '../icons/PlusIcon';
 import CardContainer from './CardContainer';
 import { createPortal } from 'react-dom';
 import ModalCard from './ModalCard';
+import generateId from '../utils/generateID';
 export default function ColumnContainer({ column }) {
 	const [showCardModal, setShowCardModal] = useState(false);
 	const [cards, setCards] = useState([
@@ -17,9 +18,6 @@ export default function ColumnContainer({ column }) {
 		},
 	]);
 
-	function generateId() {
-		return Math.floor(Math.random() * 10001);
-	}
 	const generateNewCard = (data) => {
 		console.log(data);
 		setCards([...cards, data]);

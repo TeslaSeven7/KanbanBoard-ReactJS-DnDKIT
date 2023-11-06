@@ -42,7 +42,7 @@ export default function CardContainer({
 			<textarea
 				name='cardDescription'
 				cols='30'
-				rows='3'
+				rows='1'
 				spellCheck='false'
 				onInput={(e) => autoGrowTextarea(e)}
 				className='w-full focus:outline-none scrollbar resize-none text-gray-500'
@@ -52,7 +52,7 @@ export default function CardContainer({
 			<p className='text-start text-gray-500 mb-5'></p>
 			<div className='relative'>
 				<div className='absolute h-[1px] w-[120%] -left-7 right-0 bg-zinc-300'></div>
-				<div className='pt-5 flex justify-between items-center'>
+				<div className='pt-5 flex justify-between items-center h-5'>
 					<div className=''></div>
 					<button>
 						<DeleteIcon />
