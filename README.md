@@ -1,2 +1,2 @@
 
-A Draggable Kanbam Board made with ReactJS and DnDKit
+A Draggable Kanban board made with ReactJS and DnDKit
