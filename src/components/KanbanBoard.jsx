@@ -50,6 +50,7 @@ export default function () {
 			id: generateId(),
 			title: `Todo ${columns.length + 1}`,
 			titleFlair: bgColor,
+			cards: {},
 		};
 		setColumns([...columns, columnToAdd]);
 	}
@@ -67,12 +68,23 @@ export default function () {
 		});
 		setColumns(newColumns);
 	}
+	function placeCardsInArray(cardsComp, colID) {
+		console.log(cardsComp);
+
+		const newColumnsCard = columns.map((col) => {
+			if (col.id === colID) {
+				return { ...col, cards: { ...col.cards, [generateId()]: cardsComp } };
+			}
+			return col;
+		});
+		setColumns(newColumnsCard);
+		return columns;
+	}
 	function onDragStart(e) {
 		if (e.active.data.current?.type === 'Column') {
-			console.log(e);
+			console.log(e.active.data.current.column);
 			setActiveColumn(e.active.data.current.column);
 			setActiveCardCol(e.active.data.current.cards);
-
 			return;
 		}
 	}
@@ -98,6 +110,7 @@ export default function () {
 			});
 		}
 	}
+
 	return (
 		<div className='m-auto flex min-h-screen w-full items-center'>
 			<DndContext
@@ -112,6 +125,7 @@ export default function () {
 										key={column.id}
 										column={column}
 										id={column.id}
+										placeCards={placeCardsInArray}
 										deleteCol={deleteColumn}
 										updateColumn={updateColumn}
 									/>
@@ -130,14 +144,13 @@ export default function () {
 					<DragOverlay>
 						{activeColumn && (
 							<ColumnContainer
+								placeCards={placeCardsInArray}
 								key={activeColumn.id}
 								id={activeColumn.id}
 								column={activeColumn}
-								deleteCol={deleteColumn}>
-								{activeCardCol.map((column) => {
-									return <p>{column.title}</p>;
-								})}
-							</ColumnContainer>
+								deleteCol={deleteColumn}
+								cardData={activeColumn.cards}
+							/>
 						)}
 					</DragOverlay>,
 					document.body

@@ -13,18 +13,11 @@ export default function ColumnContainer({
 	deleteCol,
 	id,
 	updateColumn,
+	placeCards,
+	cardData,
 }) {
 	const [showCardModal, setShowCardModal] = useState(false);
-	const [cards, setCards] = useState([
-		{
-			id: generateId(),
-			title: 'Placeholder Title',
-			flair: 'UX design',
-			color: '#f97316',
-			accentColor: '#f9731624',
-			content: '',
-		},
-	]);
+	const [cards, setCards] = useState([]);
 	const [editMode, setEditMode] = useState(false);
 	const {
 		setNodeRef,
@@ -42,8 +35,16 @@ export default function ColumnContainer({
 		},
 		disabled: editMode,
 	});
-
-	// Trigger a re-render by updating the state
+	// const [cards, setCards] = useState([
+	// 	{
+	// 		id: generateId(),
+	// 		title: 'Placeholder Title',
+	// 		flair: 'UX design',
+	// 		color: '#f97316',
+	// 		accentColor: '#f9731624',
+	// 		content: '',
+	// 	},
+	// ]);
 	const style = { transform: CSS.Transform.toString(transform), transition };
 	if (isDragging) {
 		return (
@@ -55,12 +56,21 @@ export default function ColumnContainer({
 	}
 	const generateNewCard = (data) => {
 		setCards([...cards, data]);
+
+		placeCards(data, id);
 	};
 	function unFocus(e) {
 		if (e.key === 'Enter') {
 			setEditMode(false);
 		} else {
 			return;
+		}
+	}
+	for (const objectKey in cardData) {
+		console.log(`Object Key: ${objectKey}`);
+		const subObject = cardData[objectKey];
+		for (const prop in subObject) {
+			console.log(`Property: ${prop}, Value: ${subObject[prop]}`);
 		}
 	}
 
