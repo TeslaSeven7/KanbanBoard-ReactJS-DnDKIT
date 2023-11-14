@@ -67,7 +67,7 @@ export default function ModalCard({ closeModal, onData }) {
 			className='fixed top-0 bg-white bg-opacity-75 h-full w-full flex items-center justify-center z-10'>
 			<div
 				onClick={(e) => e.stopPropagation()}
-				className='relative bg-white rounded-md border border-zinc-300 px-6 py-8 w-[450px] shadow-sm'>
+				className='relative rounded-md border bg-white border-zinc-300 px-6 py-8 w-[450px] shadow-sm'>
 				<button
 					className='absolute top-5 right-5'
 					onClick={closeModal}>

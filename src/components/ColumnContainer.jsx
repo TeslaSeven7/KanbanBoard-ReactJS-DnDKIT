@@ -18,6 +18,16 @@ export default function ColumnContainer({
 }) {
 	const [showCardModal, setShowCardModal] = useState(false);
 	const [cards, setCards] = useState([]);
+	// const [cards, setCards] = useState([
+	// 	{
+	// 		id: generateId(),
+	// 		title: 'Placeholder Title',
+	// 		flair: 'UX design',
+	// 		color: '#f97316',
+	// 		accentColor: '#f9731624',
+	// 		content: '',
+	// 	},
+	// ]);
 	const [editMode, setEditMode] = useState(false);
 	const {
 		setNodeRef,
@@ -35,16 +45,6 @@ export default function ColumnContainer({
 		},
 		disabled: editMode,
 	});
-	// const [cards, setCards] = useState([
-	// 	{
-	// 		id: generateId(),
-	// 		title: 'Placeholder Title',
-	// 		flair: 'UX design',
-	// 		color: '#f97316',
-	// 		accentColor: '#f9731624',
-	// 		content: '',
-	// 	},
-	// ]);
 	const style = { transform: CSS.Transform.toString(transform), transition };
 	if (isDragging) {
 		return (
@@ -120,7 +120,7 @@ export default function ColumnContainer({
 				</div>
 				<button
 					onClick={() => setShowCardModal(!showCardModal)}
-					className=' mb-4 flex items-center justify-center bg-white text-blue-500 rounded-md border border-blue-500 w-full py-3 font-semibold ring-blue-300 hover:ring-1 transition hover:border-blue-300'>
+					className=' mb-4 flex  items-center justify-center bg-white text-blue-500 rounded-md border border-blue-500 w-full py-3 font-semibold ring-blue-300 hover:ring-1 transition hover:border-blue-300'>
 					<PlusIcon />
 					<span className='ms-3'>Add New Task</span>
 				</button>
