@@ -2,12 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-body, html{
+body,
+html {
   background-color: #f7f7f7;
 }
 
 .scrollbar::-webkit-scrollbar {
-  width: 7px;
+  width: 10px;
 }
 .scrollbar::-webkit-scrollbar-thumb {
   border-radius: 10px;
@@ -15,7 +16,7 @@ body, html{
 }
 
 .notif-content::-webkit-scrollbar-track {
-  -webkit-box-shadow: transparent; 
+  -webkit-box-shadow: transparent;
   border-radius: 10px;
 }
 
@@ -23,4 +24,3 @@ body, html{
   border-radius: 10px;
   background-color: #6c6c6c;
 }
-
