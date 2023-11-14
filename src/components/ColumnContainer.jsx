@@ -45,6 +45,8 @@ export default function ColumnContainer({
 		},
 		disabled: editMode,
 	});
+	console.log(cardData);
+	
 	const style = { transform: CSS.Transform.toString(transform), transition };
 	if (isDragging) {
 		return (
@@ -66,13 +68,15 @@ export default function ColumnContainer({
 			return;
 		}
 	}
-	for (const objectKey in cardData) {
-		console.log(`Object Key: ${objectKey}`);
-		const subObject = cardData[objectKey];
-		for (const prop in subObject) {
-			console.log(`Property: ${prop}, Value: ${subObject[prop]}`);
-		}
-	}
+	// for (const objectKey in cardData) {
+	// 	console.log(`Object Key: ${objectKey}`);
+	// 	const subObject = cardData[objectKey];
+	// 	for (const prop in subObject) {
+	// 		console.log(`Property: ${prop}, Value: ${subObject[prop]}`);
+	// 	}
+	// }
+	console.log(cards);
+	
 
 	return (
 		<>
@@ -124,18 +128,30 @@ export default function ColumnContainer({
 					<PlusIcon />
 					<span className='ms-3'>Add New Task</span>
 				</button>
-				{cards.map((card) => {
-					return (
-						<CardContainer
-							key={card.id}
-							title={card.title}
-							flair={card.flair}
-							color={card.color}
-							accent={card.accentColor}
-							content={card.content}
-						/>
-					);
-				})}
+				{cardData && cardData.length > 0 ? (
+					cardData.map((card) => (
+        				<CardContainer
+           					key={card.id}
+            				title={card.title}
+            				flair={card.flair}
+            				color={card.color}
+            				accent={card.accentColor}
+            				content={card.content}
+        				/>
+    				))
+    				
+				) : (
+    				cards.map((card) => (
+        				<CardContainer
+           					key={card.id}
+            				title={card.title}
+            				flair={card.flair}
+            				color={card.color}
+            				accent={card.accentColor}
+            				content={card.content}
+        				/>
+    				))
+				)}
 			</div>
 			{showCardModal &&
 				createPortal(

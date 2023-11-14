@@ -82,7 +82,7 @@ export default function () {
 	}
 	function onDragStart(e) {
 		if (e.active.data.current?.type === 'Column') {
-			console.log(e.active.data.current.column);
+			console.log(e.active.data.current.cards);
 			setActiveColumn(e.active.data.current.column);
 			setActiveCardCol(e.active.data.current.cards);
 			return;
@@ -149,7 +149,7 @@ export default function () {
 								id={activeColumn.id}
 								column={activeColumn}
 								deleteCol={deleteColumn}
-								cardData={activeColumn.cards}
+								cardData={activeCardCol}
 							/>
 						)}
 					</DragOverlay>,
