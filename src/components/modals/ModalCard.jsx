@@ -208,7 +208,7 @@ export default function ModalCard({ closeModal, onData }) {
             onClick={sendFormData}
             className="flex h-[50px] w-[200px] min-w-[200px] items-center justify-center rounded-md border border-blue-600 bg-blue-500 p-4 font-semibold text-zinc-100 ring-blue-300 transition hover:ring-1"
           >
-            <PlusIcon />
+            <PlusIcon color={'currentColor'} width={'h-6'} height={'w-6'} />
             <span className="ms-3">Add card</span>
           </button>
         </div>

@@ -53,10 +53,11 @@ export default function ColumnContainer({
     disabled: editMode
   })
   const style = { transform: CSS.Transform.toString(transform), transition }
+
   if (isDragging) {
     return (
       <div
-        className="min-h-[550px] min-w-[300px] max-w-[300px] rounded-md border border-blue-500 bg-slate-200 opacity-40"
+        className="min-h-[550px] min-w-[300px] max-w-[300px] rounded-md border border-dashed border-blue-500 bg-slate-200 opacity-40"
         ref={setNodeRef}
         style={style}
       ></div>
@@ -133,9 +134,9 @@ export default function ColumnContainer({
         </div>
         <button
           onClick={() => setShowCardModal(!showCardModal)}
-          className=" mb-4 flex  w-full items-center justify-center rounded-md border border-blue-500 bg-white py-3 font-semibold text-blue-500 ring-blue-300 transition hover:ring-1 "
+          className=" mb-4 flex  w-full items-center justify-center rounded-md border border-blue-500 bg-white py-2 font-semibold text-blue-500 ring-blue-300 transition hover:ring-1 "
         >
-          <PlusIcon />
+          <PlusIcon color={'currentColor'} width={'h-6'} height={'w-6'} />
           <span className="ms-3">Add new task</span>
         </button>
         {cardData && cardData.length > 0
