@@ -186,7 +186,7 @@ export default function () {
           onDragEnd={(e) => onDragEnd(e)}
         >
           <div className="m-10">
-            <div className="grid grid-cols-4 gap-[50px] ">
+            <div className="grid gap-[50px] lg:grid-cols-2 xl:grid-cols-4 ">
               <SortableContext items={columnsID}>
                 {columns.map((column) => {
                   return (

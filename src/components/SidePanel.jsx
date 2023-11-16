@@ -191,7 +191,7 @@ export default function SidePanel() {
                   />
                 </div>
                 <div className="flex flex-col justify-center">
-                  <p className="mb-0">Charles Redford</p>
+                  <p className="mb-0">Julie Kino</p>
                   <div className="flex items-center">
                     <span className="me-2 h-2 w-2 rounded-full bg-green-400"></span>
                     <p className="mb-0 text-xs text-zinc-400">Online</p>
@@ -214,7 +214,7 @@ export default function SidePanel() {
                   />
                 </div>
                 <div className="flex flex-col justify-center">
-                  <p className="mb-0">Charles Redford</p>
+                  <p className="mb-0">John Tilope</p>
                   <div className="flex items-center">
                     <span className="me-2 h-2 w-2 rounded-full bg-zinc-400"></span>
                     <p className="mb-0 text-xs text-zinc-400">Offline</p>

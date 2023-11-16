@@ -18,11 +18,6 @@ export default function ColumnContainer({
   cardData,
   updateCards
 }) {
-  useEffect(() => {
-    if (cards.length != 0) {
-      console.log(cards[0].accentColor)
-    }
-  })
   const [showCardModal, setShowCardModal] = useState(false)
   const [cards, setCards] = useState([])
   // const [cards, setCards] = useState([
@@ -52,15 +47,47 @@ export default function ColumnContainer({
     },
     disabled: editMode
   })
-  const style = { transform: CSS.Transform.toString(transform), transition }
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition
+  }
+
+  const [colHeight, setColHeight] = useState('auto')
+  const [observer, setObserver] = useState(null)
+
+  useEffect(() => {
+    const colElem = document.getElementById('column')
+
+    const updateColHeight = () => {
+      if (colElem) {
+        setColHeight(`${colElem.offsetHeight}px`)
+      }
+    }
+
+    const resizeObserver = new ResizeObserver(updateColHeight)
+    resizeObserver.observe(colElem)
+
+    setObserver(resizeObserver)
+
+    updateColHeight()
+
+    return () => {
+      if (resizeObserver) {
+        resizeObserver.disconnect()
+      }
+    }
+  }, [])
 
   if (isDragging) {
     return (
       <div
-        className="min-h-[550px] min-w-[300px] max-w-[300px] rounded-md border border-dashed border-blue-500 bg-slate-200 opacity-40"
+        id="column"
+        className="min-w-[300px] max-w-[300px] rounded-md border border-dashed border-blue-500 bg-slate-200 opacity-40"
         ref={setNodeRef}
-        style={style}
-      ></div>
+        style={{ ...style, height: colHeight }}
+      >
+        {/* Your dynamic content goes here */}
+      </div>
     )
   }
   const generateNewCard = (data) => {
@@ -92,9 +119,10 @@ export default function ColumnContainer({
   return (
     <>
       <div
+        id="column"
         ref={setNodeRef}
         style={style}
-        className="min-h-[550px] min-w-[300px] max-w-[300px]"
+        className="min-w-[300px] max-w-[300px]"
       >
         <div className="mb-6 flex items-center justify-between">
           <div className="flex items-center" onClick={() => setEditMode(true)}>

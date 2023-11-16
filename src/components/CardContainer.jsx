@@ -23,8 +23,6 @@ export default function CardContainer({
     content: content
   })
   const [showEditCardModal, setShowEditCardModal] = useState(false)
-  console.log(accentColor)
-  console.log(cardContent.accentColor)
 
   useEffect(() => {
     const textareas = document.querySelectorAll('#textArea')
@@ -37,17 +35,17 @@ export default function CardContainer({
   }, [])
 
   function updateCard(newCard) {
-    console.log(newCard)
     setCardContent((prevCardContent) => {
       const updatedCardContent = { ...prevCardContent, ...newCard }
-      //console.log(updatedCardContent);
 
       return updatedCardContent
     })
     updCard(newCard)
   }
   return (
-    <div className="mb-5 overflow-x-hidden rounded-md border border-zinc-300 bg-white p-6">
+    <div
+      className={`mb-5 overflow-x-hidden rounded-md border border-zinc-300 bg-white p-6`}
+    >
       <div className="flex items-center justify-between">
         <span
           className=" rounded-full border  px-3 py-1 font-semibold "
