@@ -4,6 +4,9 @@ import DragIcon from '../assets/icons/DragIcon'
 import EditIcon from '../assets/icons/EditIcon'
 import { createPortal } from 'react-dom'
 import ModalEditCard from './modals/ModalEditCard'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+
 export default function CardContainer({
   title,
   flair,
@@ -12,7 +15,8 @@ export default function CardContainer({
   content,
   delCard,
   updCard,
-  id
+  id,
+  card
 }) {
   const [cardContent, setCardContent] = useState({
     id: id,
@@ -23,6 +27,24 @@ export default function CardContainer({
     content: content
   })
   const [showEditCardModal, setShowEditCardModal] = useState(false)
+  const {
+    setNodeRef,
+    attributes,
+    listeners,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({
+    id: id,
+    data: {
+      type: 'card',
+      card
+    }
+  })
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition
+  }
 
   useEffect(() => {
     const textareas = document.querySelectorAll('#textArea')
@@ -42,58 +64,75 @@ export default function CardContainer({
     })
     updCard(newCard)
   }
-  return (
-    <div
-      className={`mb-5 overflow-x-hidden rounded-md border border-zinc-300 bg-white p-6`}
-    >
-      <div className="flex items-center justify-between">
-        <span
-          className=" rounded-full border  px-3 py-1 font-semibold "
-          style={{
-            color: cardContent.color,
-            backgroundColor: cardContent.accentColor,
-            borderColor: cardContent.color + '30'
-          }}
-        >
-          {cardContent.flair}
-        </span>
-        <button className="cursor-grab">
-          <DragIcon />
-        </button>
+  if (isDragging) {
+    return (
+      <div
+        ref={setNodeRef}
+        style={style}
+        className="mb-5 h-[210px] rounded-md border border-zinc-300 bg-white p-6"
+      >
+        Dragging CARD
       </div>
-      <input
-        type="text"
-        className="mb-2 mt-5 w-full text-start text-xl font-semibold text-gray-800 focus:outline-none"
-        placeholder="Wireframing"
-        value={cardContent.title}
-      />
-
-      <textarea
-        name="cardDescription"
-        cols="30"
-        rows="1"
-        spellCheck="false"
-        id="textArea"
-        onInput={(e) => autoGrowTextarea(e)}
-        className="scrollbar w-full resize-none bg-transparent text-gray-500 focus:outline-none"
-        value={cardContent.content}
-        onChange={(e) => {}}
-        disabled="disabled"
-      ></textarea>
-
-      <p className="mb-5 text-start text-gray-500"></p>
-      <div className="relative">
-        <div className="absolute -left-7 right-0 h-[1px] w-[120%] bg-zinc-300"></div>
-        <div className="flex h-5 items-center justify-end pt-5">
-          <button
-            className="me-5"
-            onClick={() => setShowEditCardModal(!showEditCardModal)}
+    )
+  }
+  return (
+    <>
+      <div
+        ref={setNodeRef}
+        style={style}
+        {...attributes}
+        {...listeners}
+        className={`mb-5 overflow-x-hidden rounded-md border border-zinc-300 bg-white p-6`}
+      >
+        <div className="flex items-center justify-between">
+          <span
+            className=" rounded-full border  px-3 py-1 font-semibold "
+            style={{
+              color: cardContent.color,
+              backgroundColor: cardContent.accentColor,
+              borderColor: cardContent.color + '30'
+            }}
           >
-            <EditIcon color={'#a1a1aa'} />
+            {cardContent.flair}
+          </span>
+          <button className="cursor-grab">
+            <DragIcon />
           </button>
-          <button onClick={() => delCard(id)}>
-            <DeleteIcon color={'#a1a1aa'} />
-          </button>
+        </div>
+        <input
+          type="text"
+          className="mb-2 mt-5 w-full text-start text-xl font-semibold text-gray-800 focus:outline-none"
+          placeholder="Wireframing"
+          value={cardContent.title}
+        />
+
+        <textarea
+          name="cardDescription"
+          cols="30"
+          rows="1"
+          spellCheck="false"
+          id="textArea"
+          onInput={(e) => autoGrowTextarea(e)}
+          className="scrollbar w-full resize-none bg-transparent text-gray-500 focus:outline-none"
+          value={cardContent.content}
+          onChange={(e) => {}}
+          disabled="disabled"
+        ></textarea>
+
+        <p className="mb-5 text-start text-gray-500"></p>
+        <div className="relative">
+          <div className="absolute -left-7 right-0 h-[1px] w-[120%] bg-zinc-300"></div>
+          <div className="flex h-5 items-center justify-end pt-5">
+            <button
+              className="me-5"
+              onClick={() => setShowEditCardModal(!showEditCardModal)}
+            >
+              <EditIcon color={'#a1a1aa'} />
+            </button>
+            <button onClick={() => delCard(id)}>
+              <DeleteIcon color={'#a1a1aa'} />
+            </button>
+          </div>
         </div>
       </div>
       {showEditCardModal &&
@@ -110,6 +149,6 @@ export default function CardContainer({
           />,
           document.body
         )}
-    </div>
+    </>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import DragIcon from '../assets/icons/DragIcon'
 import PlusIcon from '../assets/icons/PlusIcon'
 import DeleteIcon from '../assets/icons/DeleteIcon'
@@ -6,7 +6,7 @@ import CardContainer from './CardContainer'
 import ModalCard from './modals/ModalCard'
 import generateId from '../utils/generateID'
 import { createPortal } from 'react-dom'
-import { useSortable } from '@dnd-kit/sortable'
+import { SortableContext, useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import isEmpty from '../utils/isEmpty'
 export default function ColumnContainer({
@@ -20,17 +20,10 @@ export default function ColumnContainer({
 }) {
   const [showCardModal, setShowCardModal] = useState(false)
   const [cards, setCards] = useState([])
-  // const [cards, setCards] = useState([
-  // 	{
-  // 		id: generateId(),
-  // 		title: 'Placeholder Title',
-  // 		flair: 'UX design',
-  // 		color: '#f97316',
-  // 		accentColor: '#f9731624',
-  // 		content: '',
-  // 	},
-  // ]);
   const [editMode, setEditMode] = useState(false)
+  const cardsID = useMemo(() => {
+    return cards.map((card) => card.id)
+  }, [cards])
   const {
     setNodeRef,
     attributes,
@@ -85,9 +78,7 @@ export default function ColumnContainer({
         className="min-w-[300px] max-w-[300px] rounded-md border border-dashed border-blue-500 bg-slate-200 opacity-40"
         ref={setNodeRef}
         style={{ ...style, height: colHeight }}
-      >
-        {/* Your dynamic content goes here */}
-      </div>
+      ></div>
     )
   }
   const generateNewCard = (data) => {
@@ -169,30 +160,35 @@ export default function ColumnContainer({
         </button>
         {cardData && cardData.length > 0
           ? cardData.map((card) => (
-              <CardContainer
-                key={card.id}
-                id={card.id}
-                title={card.title}
-                flair={card.flair}
-                color={card.color}
-                accentColor={card.accentColor}
-                content={card.content}
-                delCard={deleteCard}
-                updCard={updateCard}
-              />
+              <SortableContext items={cardsID}>
+                <CardContainer
+                  key={card.id}
+                  id={card.id}
+                  title={card.title}
+                  flair={card.flair}
+                  color={card.color}
+                  accentColor={card.accentColor}
+                  content={card.content}
+                  delCard={deleteCard}
+                  updCard={updateCard}
+                  card={card}
+                />
+              </SortableContext>
             ))
           : cards.map((card) => (
-              <CardContainer
-                id={card.id}
-                key={card.id}
-                title={card.title}
-                flair={card.flair}
-                color={card.color}
-                accentColor={card.accentColor}
-                content={card.content}
-                delCard={deleteCard}
-                updCard={updateCard}
-              />
+              <SortableContext items={cardsID}>
+                <CardContainer
+                  id={card.id}
+                  key={card.id}
+                  title={card.title}
+                  flair={card.flair}
+                  color={card.color}
+                  accentColor={card.accentColor}
+                  content={card.content}
+                  delCard={deleteCard}
+                  updCard={updateCard}
+                />
+              </SortableContext>
             ))}
       </div>
       {showCardModal &&

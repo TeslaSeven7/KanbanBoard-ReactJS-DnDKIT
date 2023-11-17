@@ -14,9 +14,9 @@ import { createPortal } from 'react-dom'
 import isEmpty from '../utils/isEmpty'
 export default function () {
   const [columns, setColumns] = useState([])
-  const [columnsID, setColumnsID] = useState([])
   const [activeColumn, setActiveColumn] = useState()
   const [activeCardCol, setActiveCardCol] = useState()
+  const [columnsID, setColumnsID] = useState([])
 
   useEffect(() => {
     if (columns) {
